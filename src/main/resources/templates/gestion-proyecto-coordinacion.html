@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gestion Proyectos</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://cdn.pixabay.com/photo/2017/08/09/01/03/graduation-2613183_1280.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 100px;
+            max-width: 1700px; /* Aumente este valor para hacer la tabla más ancha */
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background-color: rgba(0, 128, 0, 0.9); /* Cambié el color de fondo a verde con opacidad */
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .table {
+            margin-bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7); /* Agregué opacidad a la tabla */
+        }
+        .table th {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-weight: bold;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+        .btn-outline-info, .btn-outline-primary {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-outline-info:hover, .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .text-warning {
+            color: #f0ad4e;
+        }
+        .text-danger {
+            color: #d9534f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Proyectos de Grado</span>
+                <div>
+                    <a th:href="@{/api/logoutCoordinador}" class="btn btn-outline-light">Cerrar sesión</a>
+                    <a th:href="@{/api/newIdeaProyecto}" class="btn btn-outline-light">Registrar Idea Proyecto</a>
+                    <a th:href="@{/api/regresarDashboardCoordinador}" class="btn btn-outline-light">Regresar</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th><strong>Identificador del proyecto</strong></th>
+                            <th><strong>Titulo</strong></th>
+                            <th><strong>Descripción</strong></th>
+                            <th><strong>Estudiante</strong></th>
+                            <th><strong>Director del Proyecto</strong></th>
+                            <th><strong>Evaluador</strong></th>
+                            <th><strong>Estado General del Proyecto</strong></th>
+                            <th><strong>Estado Revisión por Director</strong></th>
+                            <th><strong>Acciones</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="proyecto: ${proyectos}" style="text-align: center;">
+                            <td>[[${proyecto.id}]]</td>
+                            <td>[[${proyecto.titulo}]]</td>
+                            <td>[[${proyecto.descripcion}]]</td>
+
+                            <td th:if="${proyecto.estudiante != null}" th:text="${proyecto.estudiante.nombre} + ' ' + ${proyecto.estudiante.apellido}"></td>
+                            <td th:unless="${proyecto.estudiante != null}" th:text="'No assigned student'"></td>
+
+                            <td th:if="${proyecto.director != null}" th:text="${proyecto.director.nombre} + ' ' + ${proyecto.director.apellido}"></td>
+                            <td th:unless="${proyecto.director != null}" th:text="'No assigned director'"></td>
+
+                            <td th:if="${proyecto.evaluador != null}" th:text="${proyecto.evaluador.nombre} + ' ' + ${proyecto.evaluador.apellido}"></td>
+                            <td th:unless="${proyecto.evaluador != null}" th:text="'No assigned evaluator'"></td>
+
+                            <td>[[${proyecto.estado}]]</td>
+
+                            <td>[[${proyecto.estadoRevisionDirector}]]</td>
+                            <td>
+                                <a class="mx-3 text-warning" th:href="@{/api/editProyecto/{id}(id = ${proyecto.id})}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                </a>
+                                <a class="mx-3 text-danger" th:href="@{/api/deleteProyecto/{id}(id = ${proyecto.id})}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

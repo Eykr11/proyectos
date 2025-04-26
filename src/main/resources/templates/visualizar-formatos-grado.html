@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Formatos de Proyectos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .imgFondo {
+            background-image: url('https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .tituloListadoEstudiantes {
+            text-align: center;
+            margin-top: 20px;
+            color: white; /* Color blanco */
+        }
+
+        .tableDatos {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%; /* Ajustar al 100% del ancho */
+        }
+
+        .tableDatos th {
+            background-color: rgb(255, 255, 255);
+            text-align: center;
+        }
+
+        .tableDatos td {
+            text-align: center;
+        }
+
+        .container {
+            margin-left: 0; /* Eliminar el margen izquierdo */
+            padding-left: 0; /* Eliminar el relleno izquierdo */
+        }
+    </style>
+</head>
+
+<body class="imgFondo">
+    <header>
+        <div>
+            <a th:href="@{/api/logoutCoordinador}" type="button" class="btn btn-outline-info" style="margin-left: 20px; margin-top: 20px;">
+                <strong>Cerrar sesión</strong>
+            </a>
+			<a th:href="@{/api/regresarDashboardCoordinador}" class="btn btn-outline-light">Regresar</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="tituloListadoEstudiantes">Formatos</h1>
+            <table class="table tableDatos">
+                <thead>
+                    <tr>
+                        <th><strong>Nombre</strong></th>
+                        <th><strong>Descripción</strong></th>
+                        <th><strong>Link</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="formato: ${formatos}">
+                        <td th:text="${formato.nombre}"></td>
+                        <td th:text="${formato.descripcion}"></td>
+                        <td><a th:href="${formato.link}" th:text="${formato.link}" target="_blank"></a></td>
+                    </tr>
+                    <!-- Optional: If no formats are available, show a message -->
+                    <tr th:if="${#lists.isEmpty(formatos)}">
+                        <td colspan="3" class="text-center">No formats available</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

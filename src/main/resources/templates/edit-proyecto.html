@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actualizar Idea Proyecto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus mr-2"></i>Actualizar Idea Proyecto
+            </div>
+            <div class="card-body">
+                <form th:action="@{/api/saveIdeaProyecto}" th:object="${proyecto}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    
+                    <div class="form-group">
+                        <label for="titulo">Título de la Idea:</label>
+                        <input type="text" id="titulo" th:field="*{titulo}" class="form-control" placeholder="Ingresa el título de la idea" required aria-label="Título de la Idea">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descripcion">Descripción de la Idea:</label>
+                        <textarea id="descripcion" th:field="*{descripcion}" class="form-control" placeholder="Ingresa la descripción de la idea" required aria-label="Descripción de la Idea"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estado">Estado del Proyecto:</label>
+                        <select class="form-control" id="estado" th:field="*{estado}" aria-label="Estado del Proyecto">
+                            <option th:each="estado : ${T(com.example.grado.entity.Proyecto.EstadoProyecto).values()}"
+                                    th:value="${estado}"
+                                    th:text="${estado}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estadoRevisionDirector">Estado Revisión Director:</label>
+                        <select class="form-control" id="estadoRevisionDirector" th:field="*{estadoRevisionDirector}" aria-label="Estado de Revisión del Director">
+                            <option th:each="estadoRevisionDirector : ${T(com.example.grado.entity.Proyecto.EstadoRevisionDirector).values()}"
+                                    th:value="${estadoRevisionDirector}"
+                                    th:text="${estadoRevisionDirector}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estudiante">Estudiantes:</label>
+                        <select class="form-control" id="estudiante" th:field="*{estudiante}" aria-label="Selecciona un Estudiante">
+                            <option value="">Selecciona un estudiante</option>
+                            <option th:each="estudiante : ${estudiantes}"
+                                    th:value="${estudiante.id}"
+                                    th:text="${estudiante.nombre + ' ' + estudiante.apellido}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="director">Directores:</label>
+                        <select class="form-control" id="director" th:field="*{director}" aria-label="Selecciona un Director">
+                            <option value="">Selecciona un director</option>
+                            <option th:each="director : ${directores}"
+                                    th:value="${director.id}"
+                                    th:text="${director.nombre + ' ' + director.apellido}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="evaluador">Evaluadores:</label>
+                        <select class="form-control" id="evaluador" th:field="*{evaluador}" aria-label="Selecciona un Evaluador">
+                            <option value="">Selecciona un evaluador</option>
+                            <option th:each="evaluador : ${evaluadores}"
+                                    th:value="${evaluador.id}"
+                                    th:text="${evaluador.nombre + ' ' + evaluador.apellido}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <a class="btn btn-secondary" th:href="@{/api/gestionarIdesProyectos}">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

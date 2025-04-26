@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Modificar estado Proyecto</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2016/07/13/23/09/work-1515801_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra del texto */
+        }
+
+        .tituloInicial {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+            padding: 30px;
+            border-radius: 10px;
+            width: 70%;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        .button {
+            text-align: center;
+        }
+
+        .btn {
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            border-color: #0069d9;
+        }
+
+        .regresar {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .regresar a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .regresar a:hover {
+            color: #0069d9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="tituloInicial">Modificar y Calificar el Estado del Proyecto por Director</h1>
+
+    <main>
+        <div class="form-container">
+            <form th:action="@{/api/saveProyectoModificadoPorDirector}" th:object="${anteproyectoPorDirector}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div>
+                    <label for="titulo">Actualizar Título:</label>
+                    <input type="text" id="titulo" th:field="*{titulo}" required>
+                </div>
+
+                <div>
+                    <label for="descripcion">Actualizar Descripción:</label>
+                    <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
+                </div>
+
+                <div>
+                    <label for="estado">Estado Revisión Director:</label>
+                    <select id="estado" th:field="*{estadoRevisionDirector}">
+                        <option th:each="estadoRevisionDirector : ${T(com.example.grado.entity.Proyecto.EstadoRevisionDirector).values()}"
+                                th:value="${estadoRevisionDirector}"
+                                th:text="${estadoRevisionDirector}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="button">
+                    <button type="submit" class="btn btn-outline-primary">Modificar</button>
+                </div>
+            </form>
+
+            <div class="regresar">
+                <a class="btn btn-outline-primary" th:href="@{/api/GestionProyectosAsignados}">Regresar</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

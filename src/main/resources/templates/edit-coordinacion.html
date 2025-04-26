@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actualizar Coordinación</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/06/22/01/books-2596809_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            margin-top: 100px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: rgb(0, 128, 0);
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 50px;
+                padding: 20px;
+            }
+        }
+
+        .d-flex {
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus mr-2"></i>Actualizar Coordinación
+            </div>
+            <div class="card-body">
+                <form th:action="@{/api/saveCoordinacion}" th:object="${coordinacion}" method="post">
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Coordinador/a:</label>
+                        <input type="text" id="nombre" class="form-control" th:field="*{nombre}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellido del Coordinador/a:</label>
+                        <input type="text" id="apellido" class="form-control" th:field="*{apellido}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono del Coordinador:</label>
+                        <input type="number" id="telefono" class="form-control" th:field="*{telefono}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correoElectronico">Correo electrónico del Coordinador:</label>
+                        <input type="email" id="correoElectronico" class="form-control" th:field="*{correoElectronico}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contrasena">Registre su Contraseña:</label>
+                        <input type="password" id="contrasena" class="form-control" th:field="*{contrasena}" required>
+                    </div>
+
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <a class="btn btn-secondary" th:href="@{/api/gestionRoles?mensaje=COORDINACION}">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

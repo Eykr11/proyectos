@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Anteproyectos Asignados</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" 
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2016/07/13/23/09/work-1515801_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.7); /* Transparent background for header */
+            padding: 20px;
+        }
+
+        .container {
+            color: white;
+            margin-top: 50px;
+        }
+
+        .tituloListadoEstudiantes {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .tableDatos {
+            background-color: rgba(255, 255, 255, 0.7); /* Transparent table background */
+            margin: 20px auto;
+            width: 90%;
+            border-radius: 10px;
+        }
+
+        .tableDatos th, .tableDatos td {
+            text-align: center;
+        }
+
+        .btn {
+            font-weight: bold;
+            color: white;
+        }
+
+        .btn-outline-info {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .text-warning {
+            color: #f0ad4e;
+        }
+
+        .text-danger {
+            color: #d9534f;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <a th:href="@{/api/logoutDirector}" class="btn btn-outline-info" style="margin-left: 20px; margin-top: 20px;">
+                <strong>Cerrar sesión</strong>
+            </a>
+
+            <a th:href="@{/api/regresarDashboardDirector}" class="btn btn-outline-info" style="margin-left: 20px; margin-top: 20px;">
+                <strong>Regresar</strong>
+            </a>
+            <input type="hidden" id="bandera" th:value="${bandera}">
+        </div>
+    </header>
+
+    <main>
+        <table class="tableDatos">
+            <h1 class="tituloListadoEstudiantes">Mis Anteproyectos Asignados</h1>
+            
+            <thead>
+                <tr style="background-color: rgb(255, 255, 255);">
+                    <th><strong>Titulo</strong></th>
+                    <th><strong>Descripción</strong></th>
+                    <th><strong>Estado del Proyecto</strong></th>
+                    <th><strong>Estado Revisión Docente</strong></th>
+                    <th><strong>Estudiante</strong></th>
+                    <th><strong>Telefono del Estudiante</strong></th>
+                    <th><strong>Correo Electronico del Estudiante</strong></th>
+                    <th><strong>Acciones</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="proyecto: ${anteProyectoDelDirector}" style="text-align: center;">
+                    <td>[[ ${proyecto.titulo} ]]</td>
+                    <td>[[ ${proyecto.descripcion} ]]</td>
+                    <td>[[ ${proyecto.estado} ]]</td>
+                    <td>[[ ${proyecto.estadoRevisionDirector} ]]</td>
+                    <td th:if="${proyecto.estudiante != null}" th:text="${proyecto.estudiante.nombre} + ' ' + ${proyecto.estudiante.apellido}">Estudiante</td>
+                    <td th:unless="${proyecto.estudiante != null}" th:text="'No asignado'">No asignado</td>
+                    <td th:if="${proyecto.estudiante != null}" th:text="${proyecto.estudiante.telefono}">Telefono Estudiante</td>
+                    <td th:unless="${proyecto.estudiante != null}" th:text="'No asignado'">No asignado</td>
+                    <td th:if="${proyecto.estudiante != null}" th:text="${proyecto.estudiante.correoElectronico}">Correo Estudiante</td>
+                    <td th:unless="${proyecto.estudiante != null}" th:text="'No asignado'">No asignado</td>
+                    <td>
+                        <a class="mx-3 text-warning" th:href="@{/api/editarAnteproyectoPorDirector/{id}(id = ${proyecto.id})}">
+                            Editar Anteproyecto
+                        </a>
+
+                        <a class="mx-3 text-danger" th:href="@{/api/abandonarAnteproyecto/{id}(id = ${proyecto.id})}">
+                            Abandonar Proyecto
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        const bandera = document.getElementById('bandera').value;
+
+        if (bandera === 'noHay') {
+            document.querySelector('table.tableDatos').style.display = 'none';
+
+            const mainElement = document.querySelector('main');
+            const mensajeElement = document.createElement('p');
+            mensajeElement.textContent = 'No hay Anteproyectos Asignados';
+            mainElement.appendChild(mensajeElement);
+        }
+    </script>
+
+</body>
+</html>

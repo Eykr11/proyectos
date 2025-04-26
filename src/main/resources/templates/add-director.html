@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agregar Director</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        /* Estilo general del body */
+        body {
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2021/05/CONSEJO-NAL.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Roboto', sans-serif;
+            opacity: 0.85; /* Opacidad ajustada para el fondo */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 100px;
+            max-width: 800px;  /* Limitar el tamaño de la tarjeta */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: #0066cc;
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        /* Efecto de sombra cuando el formulario tiene foco */
+        .form-shadow {
+            transition: box-shadow 0.3s;
+        }
+        .form-shadow:focus {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Estilo para los botones en la parte inferior */
+        .d-flex {
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .d-flex a, .d-flex button {
+            width: 48%;
+        }
+
+        /* Estilo para los labels */
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person mr-2" viewBox="0 0 16 16">
+                        <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                        <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                </div>
+                <div class="mr-auto">
+                    <h5 class="mb-0">Agregar Director</h5>
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" width="150" height="100" alt="Logo de UTS">
+            </div>
+            <div class="card-body" style="background-color: transparent;"> <!-- Fondo de la tabla transparente -->
+                <form id="formulario" th:action="@{/api/saveDirector}" th:object="${usuarioDirector}" method="post">
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Director/a:</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellido del Director/a:</label>
+                        <input type="text" class="form-control" id="apellido" th:field="*{apellido}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono del Director:</label>
+                        <input type="number" class="form-control" id="telefono" th:field="*{telefono}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correoElectronico">Correo electrónico del Director:</label>
+                        <input type="email" class="form-control" id="correoElectronico" th:field="*{correoElectronico}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contrasena">Registre su Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" required>
+                    </div>
+
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-success" onclick="addShadow()">Registrar al Sistema</button>
+                        <a class="btn btn-secondary" th:href="@{/api/gestionRoles?mensaje=DIRECTOR}">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function addShadow() {
+            document.getElementById("formulario").classList.add("form-shadow");
+            setTimeout(function(){
+                document.getElementById("formulario").classList.remove("form-shadow");
+            }, 300);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="../script.js" type="text/javascript"></script>
+    <title>Directores y sus Proyectos</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            margin-top: 100px;
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo con mayor opacidad */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: #0066cc; /* Azul oscuro */
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .table {
+            margin-bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8); /* Tabla con fondo semi-transparente */
+            border-radius: 10px;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-weight: bold;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .nav-link {
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link:hover {
+            color: #0056b3;
+            transform: translateX(5px); /* Efecto de movimiento en hover */
+        }
+
+        .btn-outline-info {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .text-center {
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        .text-center a {
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Directores y sus proyectos</span>
+                <div>
+                    <a th:href="@{/api/logoutCoordinador}" class="btn btn-outline-light">Cerrar sesión</a>
+                    <a th:href="@{/api/regresarDashboardCoordinador}" class="btn btn-outline-light">Regresar</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="buscar">Buscar:</label>
+                    <input type="text" class="form-control" id="buscar" onkeyup="buscar()">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="datos">
+                        <thead>
+                            <tr>
+                                <th>Código del Estudiante</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Teléfono</th>
+                                <th>Correo Electrónico</th>
+                                <th>Título del Proyecto</th>
+                                <th>Descripción del Proyecto</th>
+                                <th>Estado del Proyecto</th>
+                                <th>Estado de Revisión del Director</th>
+                                <th>Estudiante</th>
+                                <th>Evaluador del Proyecto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="proyecto: ${proyectos}">
+                                <td>[[ ${proyecto.director.id} ]]</td>
+                                <td>[[ ${proyecto.director.nombre} ]]</td>
+                                <td>[[ ${proyecto.director.apellido} ]]</td>
+                                <td>[[ ${proyecto.director.telefono} ]]</td>
+                                <td>[[ ${proyecto.director.correoElectronico} ]]</td>
+                                <td>[[ ${proyecto.titulo} ]]</td>
+                                <td>[[ ${proyecto.descripcion} ]]</td>
+                                <td>[[ ${proyecto.estado} ]]</td>
+                                <td>[[ ${proyecto.estadoRevisionDirector} ]]</td>
+                                <td th:if="${proyecto.estudiante != null}" th:text="${proyecto.estudiante.nombre}"></td>
+                                <td th:unless="${proyecto.estudiante != null}">No asignado</td>
+                                <td th:if="${proyecto.evaluador != null}" th:text="${proyecto.evaluador.nombre}"></td>
+                                <td th:unless="${proyecto.evaluador != null}">No asignado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

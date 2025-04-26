@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Proyectos de Grado</title>
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdjJeOaS_K0ilxlq_aQ9x-G4CZJBUXLWnsVMNW5gk7wQ&s">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <style>
+        /* Estilos personalizados */
+        .portal-header {
+            background-image: url('https://assets.asana.biz/m/d0cac5d027e74e2/webimage-article-project-management-project-management-methodologies-2x.png');
+            background-size: cover;
+            background-position: center;
+            color: #000;
+            font-weight: bold;
+            font-style: italic;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .portal-body {
+            padding: 2rem;
+        }
+
+        .portal-link {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .portal-link:hover {
+            text-decoration: none;
+        }
+
+        .portal-btn {
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .portal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilos para los diferentes colores */
+        .btn-administrador {
+            background-color: #007bff;
+        }
+
+        .btn-coordinacion {
+            background-color: #28a745;
+        }
+
+        .btn-directores {
+            background-color: #dc3545;
+        }
+
+        .btn-evaluadores {
+            background-color: #ffc107;
+        }
+
+        .btn-estudiantes {
+            background-color: #17a2b8;
+        }
+
+        .portal-p {
+            font-weight: bold;
+            font-style: italic;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="portal-header">
+                <h1 class="display-4"><i class="fas fa-graduation-cap"></i> Gestion de proyectos de grado
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Unidades_Tecnol%C3%B3gicas_de_Santander_%28UTS%29_logo.png" width="150" height="100" alt="Logo de UTS">
+                </h1>
+            </div>
+            <div class="portal-body">
+                <ul class="nav justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/api/loginAdministador}">
+                            <button class="portal-btn btn-administrador"> Administrador</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/api/loginCoordinacion}">
+                            <button class="portal-btn btn-coordinacion"> Coordinación</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/api/loginDirector}">
+                            <button class="portal-btn btn-directores"> Directores</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/api/loginEvaluador}">
+                            <button class="portal-btn btn-evaluadores"> Evaluadores</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/api/loginEstudiante}">
+                            <button class="portal-btn btn-estudiantes">Estudiantes</button>
+                        </a>
+                    </li>
+                </ul>
+
+                <p class="portal-p">Las Unidades Tecnológicas de Santander (UTS) son una institución educativa de carácter público ubicada en Bucaramanga, Colombia. Este portal de gestión de proyectos de grado ofrece una plataforma para la administración y evaluación de proyectos de los estudiantes de las UTS.</p>
+                
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
