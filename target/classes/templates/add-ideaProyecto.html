@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agregar Idea Proyecto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        /* Estilo general del body */
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/10/14/09/56/journal-2850091_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente */
+            margin: 0;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            margin-top: 100px;
+            max-width: 800px; /* Limitar el tamaño del contenedor */
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo del formulario semitransparente */
+        }
+
+        .card-header {
+            background-color: #0066cc;
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Estilo para los botones en la parte inferior */
+        .d-flex {
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .d-flex a, .d-flex button {
+            width: 48%;
+        }
+
+        /* Efecto de sombra cuando el formulario tiene foco */
+        .form-shadow {
+            transition: box-shadow 0.3s;
+        }
+        .form-shadow:focus {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus mr-2"></i> Registrar Idea Proyecto
+            </div>
+            <div class="card-body">
+                <form id="formulario" th:action="@{/api/saveIdeaProyecto}" th:object="${proyecto}" method="post">
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="form-group">
+                        <label for="titulo">Titulo de la Idea:</label>
+                        <input type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción de la Idea:</label>
+                        <textarea id="descripcion" th:field="*{descripcion}" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado del Proyecto:</label>
+                        <select class="form-control" id="estado" th:field="*{estado}">
+                            <option th:each="estado : ${T(com.example.grado.entity.Proyecto.EstadoProyecto).values()}"
+                                    th:value="${estado}" th:text="${estado}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estadoRevisionDirector">Estado Revisión Director:</label>
+                        <select class="form-control" id="estadoRevisionDirector" th:field="*{estadoRevisionDirector}">
+                            <option th:each="estadoRevisionDirector : ${T(com.example.grado.entity.Proyecto.EstadoRevisionDirector).values()}"
+                                    th:value="${estadoRevisionDirector}" th:text="${estadoRevisionDirector}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estudiante">Estudiantes:</label>
+                        <select class="form-control" id="estudiante" th:field="*{estudiante}">
+                            <option value="">Selecciona un estudiante</option>
+                            <option th:each="estudiante : ${estudiantes}"
+                                    th:value="${estudiante.id}"
+                                    th:text="${estudiante.nombre + ' ' + estudiante.apellido}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="director">Directores:</label>
+                        <select class="form-control" id="director" th:field="*{director}">
+                            <option value="">Selecciona un director</option>
+                            <option th:each="director : ${directores}"
+                                    th:value="${director.id}"
+                                    th:text="${director.nombre + ' ' + director.apellido}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evaluador">Evaluadores:</label>
+                        <select class="form-control" id="evaluador" th:field="*{evaluador}">
+                            <option value="">Selecciona un evaluador</option>
+                            <option th:each="evaluador : ${evaluadores}"
+                                    th:value="${evaluador.id}"
+                                    th:text="${evaluador.nombre + ' ' + evaluador.apellido}"></option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary" onclick="addShadow()">Registrar Idea</button>
+                        <a class="btn btn-secondary" th:href="@{/api/gestionarIdesProyectos}">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function addShadow() {
+            document.getElementById("formulario").classList.add("form-shadow");
+            setTimeout(function(){
+                document.getElementById("formulario").classList.remove("form-shadow");
+            }, 300);
+        }
+    </script>
+</body>
+</html>

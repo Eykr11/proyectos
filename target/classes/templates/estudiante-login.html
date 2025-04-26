@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>Login Estudiantes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/01/00/38/man-2562325_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background-color: rgb(0, 128, 0);
+            color: #fff;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-graduation-cap mr-2"></i>Login Estudiantes
+            </div>
+            <div class="card-body">
+                <div class="fixed-top" style="width: 100%;">
+                    <div id="errorContainer" th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p th:text="${error}"></p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <form th:action="@{/api/validarEstudiante}" method="post">
+                    <div class="form-group">
+                        <label for="correoElectronico" class="sr-only">Correo Electrónico</label>
+                        <input type="email" id="correoElectronico" class="form-control" name="correoElectronico" required placeholder="Email" aria-label="Correo Electrónico" autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasena" class="sr-only">Contraseña</label>
+                        <input type="password" id="contrasena" class="form-control" name="contrasena" required placeholder="Contraseña" aria-label="Contraseña" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a th:href="@{/}" class="btn btn-secondary">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        setTimeout(function() {
+            var errorContainer = document.getElementById('errorContainer');
+            if (errorContainer) {
+                errorContainer.style.display = 'none';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProyectosDeGradoApplication<com.example.grado>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.grado.ProyectosDeGradoApplication",
+            "projectName": "com.example.grado",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

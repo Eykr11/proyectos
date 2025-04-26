@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Calendario académico</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .imgFondo {
+            background-image: url('https://cdn.pixabay.com/photo/2014/10/14/12/05/time-488112_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .tituloListadoEstudiantes {
+            text-align: center;
+            margin-top: 20px;
+            color: white; /* Color blanco */
+        }
+
+        .tableDatos {
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .btn-outline-info {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="imgFondo">
+    <main>
+        <div class="container">
+            <h1 class="tituloListadoEstudiantes">Calendario Académico, Abril 10 de 2024</h1>
+            <table class="table tableDatos">
+                <thead style="background-color: rgb(255, 255, 255);">
+                    <tr style="text-align: center;">
+                        <th><strong>Actividad</strong></th>
+                        <th><strong>Fecha</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="noticia: ${calendarios}" style="text-align: center;">
+                        <td>[[ ${noticia.actividad} ]]</td>
+                        <td>[[ ${noticia.fecha} ]]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div class="container text-center">
+        <a th:href="@{/api/logoutCoordinador}" type="button" class="btn btn-outline-info">
+            <strong>Cerrar sesión</strong>
+        </a>
+		<a th:href="@{/api/regresarDashboardCoordinador}" class="btn btn-outline-light">Regresar</a>
+    </div>
+</body>
+</html>
